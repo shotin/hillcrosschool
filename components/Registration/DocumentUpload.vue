@@ -88,14 +88,15 @@
               <span class="font-weight-bolder"
                 >1. All documents required for upload must be certified. </span
               ><br />
-              <span class="font-weight-bolder">
-                2. If you are unable to upload your documents at this stage
+              <span class="font-weight-bolder"
+                >2. If you are unable to upload your documents at this stage
                 please</span
-              >
-              <br />
-              (a)Send them via email to
-              <span class="text-danger font-weight-bolder"
-                >admissions@hillcrosscollege.com</span
+              ><br />
+              (a) Send them via email to
+              <a
+                href="mailto:admissions@hillcrosscollege.com"
+                class="text-danger font-weight-bolder"
+                >admissions@hillcrosscollege.com</a
               >
               or <br />
               (b) Come with them to the College during the registration period.
@@ -114,6 +115,12 @@
                   :disabledInput="user.next_stage === 'end'"
                   req
                 />
+                <span
+                  v-if="doneButtonClicked &&  !hasUploadedDocument(student_id)"
+                  class="text-danger"
+                >
+                  This field is required.
+                </span>
               </div>
             </div>
             <!-- <div class="row mb-4" style="margin-left: 2%; width: 98%">
@@ -141,6 +148,12 @@
                   :document_type="`student_result`"
                   :disabledInput="user.next_stage === 'end'"
                 />
+                <span
+                  v-if="doneButtonClicked && !hasUploadedDocument(student_result)"
+                  class="text-danger"
+                >
+                  This field is required.
+                </span>
               </div>
             </div>
             <div class="row mb-4" style="margin-left: 2%; width: 98%">
@@ -154,6 +167,12 @@
                   :document_type="`student_address`"
                   :disabledInput="user.next_stage === 'end'"
                 />
+                <span
+                  v-if="doneButtonClicked && !hasUploadedDocument(student_address)"
+                  class="text-danger"
+                >
+                  This field is required.
+                </span>
               </div>
             </div>
             <!-- <div class="row mb-4" style="margin-left: 2%; width: 98%">
@@ -211,6 +230,7 @@
                   color: #ffffff;
                   text-transform: none;
                 "
+                  @click="handleDoneButtonClick"
               />
             </div>
           </form>
@@ -252,6 +272,7 @@ export default {
   },
   data() {
     return {
+      doneButtonClicked: false,
       loading: false,
       disabled: false,
       has_bursary: false,
@@ -277,7 +298,27 @@ export default {
     },
   },
   methods: {
+    hasUploadedDocument(documentType) {
+      return this.document.some((doc) => doc.type === documentType);
+    },
+    handleDoneButtonClick() {
+      // Set the flag to indicate that the "Done" button has been clicked
+      this.doneButtonClicked = true;
+    },
     async processDocumentUpload() {
+      if (!this.hasUploadedDocument('student_id')) {
+      this.stopLoader();
+      notify("Please upload the required document.", "error");
+      return;
+     }else if (!this.hasUploadedDocument('student_result')) {
+      this.stopLoader();
+      notify("Please upload the required document.", "error");
+      return;
+     }else if (!this.hasUploadedDocument('student_address')) {
+      this.stopLoader();
+      notify("Please upload the required document.", "error");
+      return;
+     }
       this.loading = true;
       this.disabled = true;
       let uploadedDocs = {};

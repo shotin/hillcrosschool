@@ -112,7 +112,7 @@ export default {
           notify("Account updated successfully", "success");
         })
         .catch(err => {
-          handleError(err);
+          notify("Password reset not successful", "success");
         });
     }
   }

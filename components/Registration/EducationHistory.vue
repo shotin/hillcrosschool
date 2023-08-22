@@ -16,7 +16,7 @@
           </button>
         </h2>
         <span v-if="hasPersonalInformationValidationError">
-          <p class="text-left custom-summary">
+          <p class="text-left custom-summary" style="color: #006b5d; font-weight: bolder;">
             Fields marked with asterisk(<span class="text-danger">*</span>) must
             be filled before advancing to the next page!
           </p>

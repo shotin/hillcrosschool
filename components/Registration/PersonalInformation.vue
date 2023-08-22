@@ -17,7 +17,10 @@
           </button>
         </h2>
         <span v-if="hasPersonalInformationValidationError">
-          <p class="text-left custom-summary">
+          <p
+            class="text-left custom-summary"
+            style="color: #006b5d; font-weight: bolder"
+          >
             Fields marked with asterisk(<span class="text-danger">*</span>) must
             be filled before advancing to the next page!
           </p>
@@ -129,7 +132,7 @@
                       :disabled="user.next_stage === 'end'"
                     />
                   </div>
-                 
+
                   <div class="mb-3">
                     <label for="">DOB <span class="text-danger">*</span></label>
                     <date-picker
@@ -143,14 +146,14 @@
                   </div>
                   <div class="mb-3">
                     <label class="custom-text" for="">Country </label>
-                    <input
+                    <!-- <input
                       type="text"
                       class="form-control"
                       placeholder="Nationality"
                       aria-label="OtherName"
                       aria-describedby="other_name-addon"
-                    />
-                    <!-- <multiselect
+                    /> -->
+                    <multiselect
                       v-model="selectCountry"
                       :options="select.countries"
                       track-by="id"
@@ -167,8 +170,7 @@
                     <validation-error
                     :message="validationKeys.country_id.message"
                     :showError="validationKeys.country_id.error"
-                  /> -->
-                  
+                  />
                   </div>
                   <div class="mb-3">
                     <label class="custom-text" for=""
@@ -399,7 +401,7 @@ export default {
         title: {
           error: false,
           message: "",
-        }, 
+        },
         dob: {
           error: false,
           message: "",
@@ -442,6 +444,7 @@ export default {
   computed: {
     ...mapGetters({
       user: "auth/user",
+      select: "select/select",
     }),
   },
   watch: {
@@ -460,10 +463,8 @@ export default {
             : ""
           : "";
         this.form.other_name = newVal.profile ? newVal.profile.other_name : "";
-        this.form.dob = newVal.profile
-          ? newVal.profile.dob
-          : "";
-          this.selectCountry = newVal.address ? newVal.address.country : "";
+        this.form.dob = newVal.profile ? newVal.profile.dob : "";
+        this.selectCountry = newVal.address ? newVal.address.country : "";
         this.form.race = newVal.profile
           ? newVal.profile.race
             ? newVal.profile.race

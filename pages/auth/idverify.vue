@@ -85,7 +85,7 @@ export default {
     processRegisterPassport() {
       let data;
       this.$axios
-        .patch(`students/passport-number`, this.form)
+        .post(`students/passport-number`, this.form)
         .then((res) => {
           data = res.data;
           this.form = this.getForm();
