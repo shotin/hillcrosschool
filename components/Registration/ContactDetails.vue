@@ -127,12 +127,12 @@
             <!-- </div> -->
             <p><br /></p>
             <div class="row">
-              <div class="col-lg-12 p-2" style="margin-left: 2%; margin-top: -3%; width: 95%">
+              <div class="col-lg-12 p-2 app_contact-mt" style="margin-left: 2%; margin-top: -3.5%; width: 95%">
                 <div class="d-flex flex-column h-100">
                   <div class="mb-3">
                     <label class="custom-text" for=""
-                      >House/Building No
-                      <span class="text-danger">*</span></label
+                      >House/Building No 
+                      <span class="text-danger">* </span><span> (House Address)</span></label
                     >
                     <input
                       type="text"
@@ -450,6 +450,7 @@
                   color: #ffffff;
                   text-transform: none;
                 "
+                class="app__contact-btn"
               />
             </div>
           </form>
@@ -718,5 +719,22 @@ export default {
 .accordion-custom {
   border-radius: 5px;
   margin: 1px 2px 1px 2px;
+}
+
+/* .side-by-side-button {
+  width: 100%!important;
+  text-align: center;
+} */
+
+@media(max-width: 750px){
+  .app_contact-mt {
+    margin-top: -30px!important;
+  }
+
+  /* .app__contact-btn {
+    width: 100%;
+    text-align: center;
+    margin-left:-60px;
+  } */
 }
 </style>

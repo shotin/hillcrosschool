@@ -79,7 +79,7 @@
         <div class="card-body p-1">
           <form role="form" @submit.prevent="processPersonalInformation()">
             <div class="row">
-              <div class="col-lg-6" style="margin-left: 2%; width: 48%">
+              <div class="col-lg-6 app__personal-info" style="margin-left: 2%; width: 48%">
                 <div class="d-flex flex-column h-100">
                   <div class="mb-3">
                     <label class="custom-text" for=""
@@ -199,7 +199,7 @@
                   />
                 </div>
               </div>
-              <div class="col-lg-6" style="margin-right: 2%; width: 48%">
+              <div class="col-lg-6 app__personal-info_" style="margin-right: 2%; width: 48%">
                 <div class="d-flex flex-column h-100">
                   <div class="mb-3">
                     <label class="custom-text" for=""
@@ -331,7 +331,7 @@
               <custom-button
                 :name="`Proceed to next page`"
                 :type="`submit`"
-                :customClass="`btn w-200 mt-1`"
+                :customClass="`btn mt-1`"
                 :loading="loading"
                 :disabled="disabled"
                 style="
@@ -339,6 +339,7 @@
                   color: #ffffff;
                   text-transform: none;
                 "
+                class="app__personal-btn"
               />
             </div>
           </form>
@@ -553,5 +554,22 @@ export default {
 .accordion-custom {
   border-radius: 5px;
   margin: 1px 2px 1px 2px;
+}
+
+@media(max-width:750px){
+  .app__personal-info {
+    width: 97%!important;
+  }
+  
+  .app__personal-btn {
+    width: 290%;
+    text-align: center;
+    margin-left:-60px;
+  }
+
+  .app__personal-info_ {
+    width: 97%!important;
+    margin-left: 2%
+  }
 }
 </style>

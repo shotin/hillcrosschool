@@ -30,9 +30,9 @@
                     :disabled="isInputDisabled" required />
                 </div>
 
-                <div class="text-center d-flex">
-                  <div class="text-center w-50">
-                    <input style="cursor: pointer" value="No, Correct it" class="btn btn-outline-danger mt-4 mb-0"
+                <div class="text-center app__correct">
+                  <div class="text-center">
+                    <input style="cursor: pointer" value="No, Correct it" class="btn btn-outline-danger mt-4 mb-0 w-75"
                       @click="handleEditClick" />
                   </div>
                   <div class="text-center w-50">
@@ -77,6 +77,7 @@ export default {
     getForm() {
       return {
         student_id: "",
+        // new_student_id: ""
       };
     },
     handleEditClick() {
@@ -106,5 +107,19 @@ export default {
 
 .bg-gradient-info {
   background-image: linear-gradient(310deg, #dc3545, #dc3545 100%);
+}
+
+@media(min-width: 1000px){
+  .app__correct {
+    display: flex!important;
+  }
+}
+
+@media(max-width: 750px){
+.app__correct button {
+    width: 130%;
+    text-align: center;
+    margin-left: 50px;
+  }
 }
 </style>

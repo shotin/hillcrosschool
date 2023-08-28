@@ -75,7 +75,7 @@
         <div class="card-body p-1" v-if="user">
           <form role="form" @submit.prevent="processEducationHistory()">
             <div class="row">
-              <div class="col-lg-6" style="margin-left: 2%; width: 48%">
+              <div class="col-lg-6 app__personal-info" style="margin-left: 2%; width: 48%">
                 <div class="d-flex flex-column h-100">
                   <div class="mb-3">
                     <label class="custom-text" for=""

@@ -154,7 +154,8 @@
                       >Terms and Conditions</a
                     >
                   </label>
-                  <div class="text-center w-100">
+                </div>
+                <div class="text-center w-100">
                     <custom-button
                       :name="`START APPLICATION PROCESS`"
                       :type="`submit`"
@@ -162,8 +163,7 @@
                       :disabled="disabled"
                     />
                   </div>
-                </div>
-                <p class="text-sm mt-3 mb-0">
+                <p class="text-sm mt-3 mb-5">
                   To complete existing application
                   <nuxt-link
                     to="/auth/login"
@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-    <help-message />
+    <!-- <help-message /> -->
   </section>
 </template>
 <script>

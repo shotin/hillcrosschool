@@ -21,13 +21,9 @@
               <h5 style="color: #dc3545">Enter Verification code</h5>
             </div>
             <div class="card-body">
-              <form
-                role="form"
-                @submit.prevent="processVerify()"
-                v-if="user"
-              >
+              <form role="form" @submit.prevent="processVerify()" v-if="user">
                 <div class="mb-3">
-                  <label for="" style="color:#00473E"
+                  <label for="" style="color: #00473e"
                     >Enter the otp sent to your registered cellphone number
                     <span class="text-danger">*</span></label
                   >
@@ -45,18 +41,20 @@
                       :key="index"
                       ref="otpInput"
                       v-model="otpDigits[index]"
-                      @input="handleInput(index)"
+                      @input="handleInput(index, $event)"
                       class="form-control otp-input"
                       maxlength="1"
                     />
                   </div>
                 </div>
-               <div class="text-center">
-                <label>
-                  Didn’t receive the code?
-                  <a class="text-danger" style="cursor: pointer;">Send again</a></label
-                >
-               </div>
+                <div class="text-center">
+                  <label>
+                    Didn’t receive the code?
+                    <a class="text-danger" style="cursor: pointer"
+                      >Send again</a
+                    ></label
+                  >
+                </div>
                 <div class="text-center">
                   <div class="text-center">
                     <custom-button
@@ -109,11 +107,21 @@ export default {
         otp: "",
       };
     },
-    handleInput(index) {
-      if (this.otpDigits[index] && index < this.otpDigits.length - 1) {
-        this.$refs.otpInput[index + 1].focus();
-      }
-    },
+    // handleInput(index) {
+    //   if (this.otpDigits[index] && index < this.otpDigits.length - 1) {
+    //     this.$refs.otpInput[index + 1].focus();
+    //   }
+    // },
+
+    handleInput(index, event) {
+    const input = event.target;
+    if (event.data === null && index > 0) {
+      this.otpDigits[index] = ""; // Clear the digit
+      this.$refs.otpInput[index - 1].focus(); // Focus on the previous input
+    } else if (index < this.otpDigits.length - 1 && this.otpDigits[index]) {
+      this.$refs.otpInput[index + 1].focus(); // Focus on the next input
+    }
+  },
 
     async processVerify() {
       let data;
@@ -170,7 +178,7 @@ export default {
 .otp-input {
   width: 3.3em;
   text-align: center;
-  border-radius: 0!important;
-  background: #D9D9D9;
+  border-radius: 0 !important;
+  background: #d9d9d9;
 }
 </style>

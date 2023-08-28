@@ -102,7 +102,7 @@
                 </div>
               </form>
             </div>
-            <div class="card-footer text-left pt-0">
+            <div class="card-footer text-left pt-0 mb-5">
               <p class="mb-4 text-sm mx-auto"  style="color: #00473e; font-weight: bolder">
                 New application?
                 <nuxt-link
