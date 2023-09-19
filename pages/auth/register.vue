@@ -32,8 +32,7 @@
               <form role="form text-left" @submit.prevent="processRegister()">
                 <div class="mb-3">
                   <label for=""
-                    >Country of Residence
-                    <span class="text-danger">*</span></label
+                    >Nationality <span class="text-danger">*</span></label
                   >
                   <multiselect
                     v-model="selectResidence"
@@ -45,13 +44,9 @@
                     :searchable="true"
                     :close-on-select="true"
                     :show-labels="false"
-                    :placeholder="selectResidence.name ? selectResidence.name : 'Select Country'"
+                    placeholder="Select Nationality"
                   >
                   </multiselect>
-                  <validation-error
-                    :message="validationKeys.residence_country.message"
-                    :showError="validationKeys.residence_country.error"
-                  />
                 </div>
 
                 <div class="mb-3">
@@ -156,13 +151,13 @@
                   </label>
                 </div>
                 <div class="text-center w-100">
-                    <custom-button
-                      :name="`START APPLICATION PROCESS`"
-                      :type="`submit`"
-                      :loading="loading"
-                      :disabled="disabled"
-                    />
-                  </div>
+                  <custom-button
+                    :name="`START APPLICATION PROCESS`"
+                    :type="`submit`"
+                    :loading="loading"
+                    :disabled="disabled"
+                  />
+                </div>
                 <p class="text-sm mt-3 mb-5">
                   To complete existing application
                   <nuxt-link
@@ -197,11 +192,10 @@ export default {
       form: this.$vform(this.getForm()),
       loading: false,
       disabled: false,
-      selectResidence:
-      {
+      selectResidence: {
         id: "94af03be-3ee9-4560-a35f-d60801dc5a0b",
         name: "South Africa",
-    },
+      },
       passwordType: "password",
       passwordTypeConfirm: "password",
       stage: false,
@@ -307,7 +301,6 @@ export default {
 
     proceed(data) {
       const student_id = data.profile.passport_number;
-  
       if (data && data.should_verify) {
         this.$router.push({
           path: `/auth/idverify/${student_id}`,
@@ -319,6 +312,16 @@ export default {
         notify("Registration successful, please sign in", "success");
         this.$router.push("/auth/login");
       }
+      // if (data && data.should_verify) {
+      //   notify(
+      //     "Registration successful, please verify your telephone number",
+      //     "success"
+      //   );
+      //   this.$router.push(`/auth/verify/${data.id}`);
+      // } else {
+      //   notify("Registration successful, please sign in", "success");
+      //   this.$router.push("/auth/login");
+      // }
     },
   },
 };

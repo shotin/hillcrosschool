@@ -98,6 +98,7 @@ export default {
       .get(`/students/records/${this.$route.params.id}`)
       .then((res) => {
         this.user = res.data.data;
+        // console.log(res.data.data);
       })
       .catch((err) => {});
   },
@@ -107,21 +108,16 @@ export default {
         otp: "",
       };
     },
-    // handleInput(index) {
-    //   if (this.otpDigits[index] && index < this.otpDigits.length - 1) {
-    //     this.$refs.otpInput[index + 1].focus();
-    //   }
-    // },
-
+  
     handleInput(index, event) {
-    const input = event.target;
-    if (event.data === null && index > 0) {
-      this.otpDigits[index] = ""; // Clear the digit
-      this.$refs.otpInput[index - 1].focus(); // Focus on the previous input
-    } else if (index < this.otpDigits.length - 1 && this.otpDigits[index]) {
-      this.$refs.otpInput[index + 1].focus(); // Focus on the next input
-    }
-  },
+      const input = event.target;
+      if (event.data === null && index > 0) {
+        this.otpDigits[index] = ""; // Clear the digit
+        this.$refs.otpInput[index - 1].focus(); // Focus on the previous input
+      } else if (index < this.otpDigits.length - 1 && this.otpDigits[index]) {
+        this.$refs.otpInput[index + 1].focus(); // Focus on the next input
+      }
+    },
 
     async processVerify() {
       let data;
@@ -146,6 +142,8 @@ export default {
           handleError(err);
         });
     },
+
+    
     stopLoader() {
       this.loading = false;
       this.disabled = false;
@@ -180,5 +178,12 @@ export default {
   text-align: center;
   border-radius: 0 !important;
   background: #d9d9d9;
+}
+
+@media (max-width: 1200px) {
+  .otp-container input {
+    width: 22%;
+    height: 3%;
+  }
 }
 </style>

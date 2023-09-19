@@ -1,7 +1,9 @@
 <template>
   <section class="min-vh-100 mb-8">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
-      style="background-image: url('../../assets/img/Hillcross-student.jpeg')">
+    <div
+      class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+      style="background-image: url('../../assets/img/Hillcross-student.jpeg')"
+    >
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
@@ -20,24 +22,37 @@
               <label style="color: #00473e"> Is your ID Number correct?</label>
             </div>
             <div class="card-body">
-              <!-- @submit.prevent="processRegisterPassport()" -->
               <form role="form" @submit.prevent="processRegisterPassport()">
                 <div class="mb-3">
                   <label for="" style="color: #00473e">
                     ID/Passport Number <span class="text-danger">*</span>
                   </label>
-                  <input type="text" class="form-control"  v-model="form.student_id" aria-label="Passport Number"
-                    :disabled="isInputDisabled" required />
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.student_id"
+                    aria-label="Passport Number"
+                    :disabled="isInputDisabled"
+                    required
+                  />
                 </div>
 
                 <div class="text-center app__correct">
                   <div class="text-center">
-                    <input style="cursor: pointer" value="No, Correct it" class="btn btn-outline-danger mt-4 mb-0 w-75"
-                      @click="handleEditClick" />
+                    <input
+                      style="cursor: pointer"
+                      value="No, Correct it"
+                      class="btn btn-outline-danger mt-4 mb-0 w-75"
+                      @click="handleEditClick"
+                    />
                   </div>
                   <div class="text-center w-50">
-                    <custom-button :name="`Yes, Proceed `" :type="`submit`" style="background: #006b5d"
-                      :custom-class="`btn btn-success mt-4 mb-0`" />
+                    <custom-button
+                      :name="`Yes, Proceed `"
+                      :type="`submit`"
+                      style="background: #006b5d"
+                      :custom-class="`btn btn-success mt-4 mb-0`"
+                    />
                   </div>
                 </div>
               </form>
@@ -63,13 +78,17 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     const student_id = to.params.student_id || "";
+    // console.log(student_id);
     next((vm) => {
       vm.form.student_id = student_id;
     });
   },
   data() {
     return {
-      form: this.getForm(),
+      // form: this.getForm(),
+      form: {
+        student_id: "", // Initialize with an empty string or a default value
+      },
       isInputDisabled: true,
     };
   },
@@ -84,18 +103,30 @@ export default {
       this.isInputDisabled = false;
     },
     processRegisterPassport() {
-      let data;
+      // let data;
       this.$axios
         .post(`students/passport-number`, this.form)
         .then((res) => {
-          data = res.data;
           this.form = this.getForm();
-          notify("Registration successful, please verify your telephone number", "success");
-          this.$router.push(`/auth/verify/${data.data.id}`);
+          this.proceed(res.data.data);
+          // notify("Registration successful, please verify your telephone number", "success");
+          // this.$router.push(`/auth/verify/${data.data.id}`);
         })
         .catch((err) => {
           handleError(err);
         });
+    },
+    proceed(data) {
+      if (data && data.should_verify) {
+        notify(
+          "Registration successful, please verify your telephone number",
+          "success"
+        );
+        this.$router.push(`/auth/verify/${data.id}`);
+      } else {
+        notify("Registration successful, please sign in", "success");
+        this.$router.push("/auth/login");
+      }
     },
   },
 };
@@ -109,14 +140,14 @@ export default {
   background-image: linear-gradient(310deg, #dc3545, #dc3545 100%);
 }
 
-@media(min-width: 1000px){
+@media (min-width: 1000px) {
   .app__correct {
-    display: flex!important;
+    display: flex !important;
   }
 }
 
-@media(max-width: 750px){
-.app__correct button {
+@media (max-width: 750px) {
+  .app__correct button {
     width: 130%;
     text-align: center;
     margin-left: 50px;
