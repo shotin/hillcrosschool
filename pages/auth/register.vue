@@ -300,28 +300,21 @@ export default {
     },
 
     proceed(data) {
-      const student_id = data.profile.passport_number;
+      const passport_id = data.id;
+      // const student_id = data.profile.passport_number;
+      // console.log(student_id);
       if (data && data.should_verify) {
         this.$router.push({
-          path: `/auth/idverify/${student_id}`,
+          path: `/auth/idverify/${passport_id}`,
           params: {
-            student_id: student_id,
+            passport_id: passport_id,
+            // student_id: student_id,      
           },
         });
       } else {
         notify("Registration successful, please sign in", "success");
         this.$router.push("/auth/login");
       }
-      // if (data && data.should_verify) {
-      //   notify(
-      //     "Registration successful, please verify your telephone number",
-      //     "success"
-      //   );
-      //   this.$router.push(`/auth/verify/${data.id}`);
-      // } else {
-      //   notify("Registration successful, please sign in", "success");
-      //   this.$router.push("/auth/login");
-      // }
     },
   },
 };

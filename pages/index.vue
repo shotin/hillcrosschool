@@ -61,7 +61,7 @@ export default {
   mounted() {
     this.$store.commit("app/SET_TITLE", "Dashboard");
     if (this.user.registered_stages && this.user.next_stage === "end") {
-      this.$router.push(`/`);
+      this.r.push(`/`);
     } else {
       this.$router.push(`/${this.user.next_stage}`);
     }

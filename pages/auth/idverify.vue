@@ -32,21 +32,22 @@
                     class="form-control"
                     v-model="form.student_id"
                     aria-label="Passport Number"
-                    :disabled="isInputDisabled"
+                    :readonly="isInputDisabled"
                     required
                   />
                 </div>
 
-                <div class="text-center app__correct">
-                  <div class="text-center">
-                    <input
+                <div class="text-center d-flex app__correct">
+                  <div class="text-center w-100">
+                    <p
                       style="cursor: pointer"
-                      value="No, Correct it"
-                      class="btn btn-outline-danger mt-4 mb-0 w-75"
+                      class="btn btn-outline-danger mt-4 mb-0"
                       @click="handleEditClick"
-                    />
+                    >
+                      No, Correct it
+                    </p>
                   </div>
-                  <div class="text-center w-50">
+                  <div class="text-center w-100">
                     <custom-button
                       :name="`Yes, Proceed `"
                       :type="`submit`"
@@ -70,24 +71,35 @@ export default {
   components: { CustomButton },
   layout: "auth",
   props: {
-    student_id: {
+    passport_id: {
       required: true,
       type: String,
     },
   },
 
   beforeRouteEnter(to, from, next) {
-    const student_id = to.params.student_id || "";
-    // console.log(student_id);
+    const passport_id = to.params.passport_id || "";
     next((vm) => {
-      vm.form.student_id = student_id;
+      vm.form.passport_id = passport_id;
     });
+  },
+
+  mounted() {
+    this.$axios
+      .get(`/students/records/${this.$route.params.passport_id}`)
+      .then((res) => {
+        this.user = res.data.data;
+        this.form.student_id = res.data.data.profile.passport_number;
+      })
+      .catch((err) => {});
   },
   data() {
     return {
       // form: this.getForm(),
+      user: null,
       form: {
-        student_id: "", // Initialize with an empty string or a default value
+        passport_id: "",
+        student_id: ""
       },
       isInputDisabled: true,
     };
@@ -95,8 +107,7 @@ export default {
   methods: {
     getForm() {
       return {
-        student_id: "",
-        // new_student_id: ""
+        passport_id: "",
       };
     },
     handleEditClick() {
@@ -104,13 +115,12 @@ export default {
     },
     processRegisterPassport() {
       // let data;
+      this.form.id = this.user.id;
       this.$axios
-        .post(`students/passport-number`, this.form)
+        .patch(`students/passport-number/${this.form.id}`, this.form)
         .then((res) => {
           this.form = this.getForm();
           this.proceed(res.data.data);
-          // notify("Registration successful, please verify your telephone number", "success");
-          // this.$router.push(`/auth/verify/${data.data.id}`);
         })
         .catch((err) => {
           handleError(err);
@@ -147,10 +157,9 @@ export default {
 }
 
 @media (max-width: 750px) {
-  .app__correct button {
-    width: 130%;
-    text-align: center;
-    margin-left: 50px;
-  }
+ .app__correct button {
+  width: 90%!important;
+  font-size: 9px;
+ }
 }
 </style>

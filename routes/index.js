@@ -11,7 +11,7 @@ module.exports = [
   },
   {
     name: 'idverify',
-    path: "/auth/idverify/:student_id",
+    path: "/auth/idverify/:passport_id",
     component: "./pages/auth/idverify.vue"
   },  
   {

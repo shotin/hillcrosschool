@@ -407,10 +407,10 @@ export default {
           error: false,
           message: "",
         },
-        title: {
-          error: false,
-          message: "",
-        },
+        // title: {
+        //   error: false,
+        //   message: "",
+        // },
         gender: {
           error: false,
           message: "",
