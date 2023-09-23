@@ -184,7 +184,7 @@ export default {
                 (validationElement) => {
                   for (var key in this.validationKeys) {
                     if (key == validationKey) {
-                      console.log(this.validationKeys[validationKey]);
+                      // console.log(this.validationKeys[validationKey]);
                       this.validationKeys[validationKey].error = true;
                       this.validationKeys[validationKey].message =
                         validationElement;

@@ -121,7 +121,7 @@ export default {
         })
         .catch(error => {
           this.s3PresignedUrl = "";
-          handleError(error);
+          notify("The selected file extension is invalid", "error");
         });
       return this.s3PresignedUrl;
     },

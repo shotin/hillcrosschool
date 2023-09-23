@@ -424,8 +424,8 @@
             </div>
             <p><br /></p>
             <div
-              class="side-by-side-button w-200"
-              style="margin-left: 34%; margin-right: 35%; margin-top: -20px"
+              class="side-by-side-button  d-flex w-100 justify-content-center"
+              style="margin-top: -20px;"
               v-if="user.next_stage != 'end'"
             >
               <nuxt-link
@@ -439,10 +439,10 @@
                 "
                 >Go to previous form</nuxt-link
               >
-              <custom-button
+              &nbsp;  &nbsp; <custom-button
                 :name="`Proceed to next page`"
                 :type="`submit`"
-                :customClass="`btn w-200`"
+                :customClass="`btn`"
                 :loading="loading"
                 :disabled="disabled"
                 style="
@@ -725,12 +725,20 @@ export default {
   width: 100%!important;
   text-align: center;
 } */
+/* style="margin-left: 34%; margin-right: 35%; margin-top: -20px" */
 
 @media(max-width: 750px){
   .app_contact-mt {
     margin-top: -30px!important;
   }
 
+  .side-by-side-button {
+  margin-left: 0!important;
+  font-size: 10px!important;
+  /* margin-right: -34%!important; */
+  display: inline-block!important;
+  text-align: center;
+}
   /* .app__contact-btn {
     width: 100%;
     text-align: center;

@@ -313,8 +313,7 @@
             </div>
             <p><br /></p>
             <div
-              class="side-by-side-button w-200"
-              style="margin-left: 40%; margin-right: 40%; margin-top: -20px"
+            class="side-by-side-button  d-flex w-100 justify-content-center"
               v-if="user.next_stage != 'end'"
             >
               <nuxt-link
@@ -561,11 +560,11 @@ export default {
     width: 97%!important;
   }
   
-  .app__personal-btn {
+  /* .app__personal-btn {
     width: 290%;
     text-align: center;
     margin-left:-60px;
-  }
+  } */
 
   .app__personal-info_ {
     width: 97%!important;

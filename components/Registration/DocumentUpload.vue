@@ -116,7 +116,7 @@
                   req
                 />
                 <span
-                  v-if="doneButtonClicked &&  !hasUploadedDocument(student_id)"
+                  v-if="doneButtonClicked && !hasUploadedDocument(student_id)"
                   class="text-danger"
                 >
                   This field is required.
@@ -149,7 +149,9 @@
                   :disabledInput="user.next_stage === 'end'"
                 />
                 <span
-                  v-if="doneButtonClicked && !hasUploadedDocument(student_result)"
+                  v-if="
+                    doneButtonClicked && !hasUploadedDocument(student_result)
+                  "
                   class="text-danger"
                 >
                   This field is required.
@@ -168,7 +170,9 @@
                   :disabledInput="user.next_stage === 'end'"
                 />
                 <span
-                  v-if="doneButtonClicked && !hasUploadedDocument(student_address)"
+                  v-if="
+                    doneButtonClicked && !hasUploadedDocument(student_address)
+                  "
                   class="text-danger"
                 >
                   This field is required.
@@ -204,8 +208,7 @@
             </div> -->
             <p><br /></p>
             <div
-              class="side-by-side-button w-200"
-              style="margin-left: 34%; margin-right: 35%; margin-top: -20px"
+              class="side-by-side-button d-flex w-100 justify-content-center"
               v-if="user.next_stage != 'end'"
             >
               <nuxt-link
@@ -219,6 +222,7 @@
                 "
                 >Go to previous form</nuxt-link
               >
+              &nbsp; &nbsp;
               <custom-button
                 :name="`Done`"
                 :type="`submit`"
@@ -230,7 +234,7 @@
                   color: #ffffff;
                   text-transform: none;
                 "
-                  @click="handleDoneButtonClick"
+                @click="handleDoneButtonClick"
               />
             </div>
           </form>
@@ -306,19 +310,19 @@ export default {
       this.doneButtonClicked = true;
     },
     async processDocumentUpload() {
-      if (!this.hasUploadedDocument('student_id')) {
-      this.stopLoader();
-      notify("Please upload the required document.", "error");
-      return;
-     }else if (!this.hasUploadedDocument('student_result')) {
-      this.stopLoader();
-      notify("Please upload the required document.", "error");
-      return;
-     }else if (!this.hasUploadedDocument('student_address')) {
-      this.stopLoader();
-      notify("Please upload the required document.", "error");
-      return;
-     }
+      if (!this.hasUploadedDocument("student_id")) {
+        this.stopLoader();
+        notify("Please upload the required document.", "error");
+        return;
+      } else if (!this.hasUploadedDocument("student_result")) {
+        this.stopLoader();
+        notify("Please upload the required document.", "error");
+        return;
+      } else if (!this.hasUploadedDocument("student_address")) {
+        this.stopLoader();
+        notify("Please upload the required document.", "error");
+        return;
+      }
       this.loading = true;
       this.disabled = true;
       let uploadedDocs = {};
@@ -336,9 +340,10 @@ export default {
           this.$router.push("/acknowledgement");
         })
         .catch((err) => {
-          console.log(err);
+          notify("The selected file extension is invalid", "error");
+          // console.log(err);
           this.stopLoader();
-          handleError(err);
+          // handleError(err);
         });
     },
     stopLoader() {
@@ -352,5 +357,16 @@ export default {
 .accordion-custom {
   border-radius: 5px;
   margin: 1px 2px 1px 2px;
+}
+
+@media (max-width: 750px) {
+  .side-by-side-button {
+    margin-left: 0 !important;
+    font-size: 10px !important;
+    /* margin-right: -34%!important; */
+    text-align: center;
+    margin-top: -30px !important;
+    display: inline-block !important;
+  }
 }
 </style>

@@ -22,19 +22,12 @@
             </div>
             <div class="card-body">
               <form role="form" @submit.prevent="processVerify()" v-if="user">
-                <div class="mb-3">
+                <div class="mb-3 text-center">
                   <label for="" style="color: #00473e"
                     >Enter the otp sent to your registered cellphone number
                     <span class="text-danger">*</span></label
                   >
-                  <!-- <input
-                    type="text"
-                    v-model="form.otp"
-                    class="form-control"
-                    placeholder="Enter the OTP sent to your telephone number"
-                    aria-label="Email"
-                    aria-describedby="email-addon"
-                  /> -->
+                  
                   <div class="otp-container">
                     <input
                       v-for="(digit, index) in otpDigits"
@@ -47,10 +40,11 @@
                     />
                   </div>
                 </div>
+                 
                 <div class="text-center">
                   <label>
                     Didn’t receive the code?
-                    <a class="text-danger" style="cursor: pointer"
+                    <a  @click="resendOTP" class="text-danger" style="cursor: pointer"
                       >Send again</a
                     ></label
                   >
@@ -108,7 +102,7 @@ export default {
         otp: "",
       };
     },
-  
+
     handleInput(index, event) {
       const input = event.target;
       if (event.data === null && index > 0) {
@@ -139,11 +133,24 @@ export default {
         })
         .catch((err) => {
           this.stopLoader();
-          handleError(err);
+          notify("Invalid OTP");
         });
     },
 
+    async resendOTP() {
+    this.loading = true; // Set loading state while sending OTP
     
+    try {
+      // Make an API request to resend OTP
+      await this.$axios.post(`/students/resend-otp/${this.user.id}`);
+      notify("OTP resent successfully.", "success");
+    } catch (error) {
+      notify("Failed to resend OTP.", "error");
+    } finally {
+      this.loading = false; // Reset loading state
+    }
+  },
+
     stopLoader() {
       this.loading = false;
       this.disabled = false;
@@ -159,17 +166,17 @@ export default {
   background-image: linear-gradient(310deg, #dc3545, #dc3545 100%);
 }
 
-.otp-input {
+/* .otp-input {
   width: 2em;
   text-align: center;
   margin: 0 0.5em;
   display: flex;
-}
+} */
 
 .otp-container {
   display: flex;
   flex-direction: row;
-  gap: 0.5em; /* Adjust this value as needed for spacing between input boxes */
+  justify-content: center;
 }
 
 /* Add styling for otp-input class as needed */
@@ -178,6 +185,7 @@ export default {
   text-align: center;
   border-radius: 0 !important;
   background: #d9d9d9;
+  margin: 0 0.3em;
 }
 
 @media (max-width: 1200px) {

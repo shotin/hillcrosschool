@@ -258,8 +258,7 @@
             </div>
             <p><br /></p>
             <div
-              class="side-by-side-button w-200"
-              style="margin-left: 34%; margin-right: 35%; margin-top: -20px"
+            class="side-by-side-button  d-flex w-100 justify-content-center"
               v-if="user.next_stage != 'end'"
             >
               <nuxt-link
@@ -273,7 +272,7 @@
                 "
                 >Go to previous form</nuxt-link
               >
-              <custom-button
+              &nbsp;  &nbsp; <custom-button
                 :name="`Proceed to next page`"
                 :type="`submit`"
                 :customClass="`btn w-200`"
@@ -474,5 +473,21 @@ export default {
 .accordion-custom {
   border-radius: 5px;
   margin: 1px 2px 1px 2px;
+}
+
+@media(max-width: 750px){
+
+.side-by-side-button {
+margin-left: 0!important;
+font-size: 10px!important;
+/* margin-right: -34%!important; */
+display: inline-block;
+text-align: center;
+}
+/* .app__contact-btn {
+  width: 100%;
+  text-align: center;
+  margin-left:-60px;
+} */
 }
 </style>
