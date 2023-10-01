@@ -216,6 +216,25 @@
                   />
                   <div class="mb-3">
                     <label class="custom-text" for=""
+                      >Country <span class="text-danger">*</span></label
+                    >
+                    <multiselect
+                      v-model="selectCountry"
+                      :options="select.countries"
+                      track-by="id"
+                      label="name"
+                      required
+                      :multiple="false"
+                      :searchable="true"
+                      :close-on-select="true"
+                      :show-labels="false"
+                      placeholder="Select Country"
+                      :disabled="user.next_stage === 'end'"
+                    >
+                    </multiselect>
+                  </div>
+                  <div class="mb-3">
+                    <label class="custom-text" for=""
                       >State/Province <span class="text-danger">*</span></label
                     >
                     <multiselect
@@ -234,25 +253,7 @@
                     </multiselect>
                   </div>
 
-                  <div class="mb-3">
-                    <label class="custom-text" for=""
-                      >Country <span class="text-danger">*</span></label
-                    >
-                    <multiselect
-                      v-model="selectCountry"
-                      :options="select.countries"
-                      track-by="id"
-                      label="name"
-                      required
-                      :multiple="false"
-                      :searchable="true"
-                      :close-on-select="true"
-                      :show-labels="false"
-                      placeholder="Select Country"
-                      :disabled="user.next_stage === 'end'"
-                    >
-                    </multiselect>
-                  </div>
+                 
                   <validation-error
                     :message="validationKeys.country_id.message"
                     :showError="validationKeys.country_id.error"
